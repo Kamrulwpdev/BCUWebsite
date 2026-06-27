@@ -1,0 +1,16 @@
+@model BCUWebsite.Models.Course
+
+@{
+    ViewData["Title"] = "Delete Course";
+}
+
+<div class="alert alert-danger">
+    <h5>Delete this course?</h5>
+    <p>Are you sure you want to remove "@Model.Title"?</p>
+</div>
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

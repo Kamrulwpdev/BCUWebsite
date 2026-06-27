@@ -1,0 +1,53 @@
+@model BCUWebsite.Models.ViewModels.NewsArticleViewModel
+
+@{
+    ViewData["Title"] = "Edit News";
+}
+
+<form asp-action="Edit" enctype="multipart/form-data">
+    <input type="hidden" asp-for="Id" />
+    <div class="mb-3">
+        <label asp-for="Title" class="form-label"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Content" class="form-label"></label>
+        <textarea asp-for="Content" class="form-control" id="newsContent" rows="6"></textarea>
+        <span asp-validation-for="Content" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="PublishedDate" class="form-label"></label>
+        <input asp-for="PublishedDate" class="form-control" type="datetime-local" value="@Model.PublishedDate.ToString("yyyy-MM-ddTHH:mm")" />
+    </div>
+    <div class="mb-3 form-check">
+        <input asp-for="IsPublished" class="form-check-input" />
+        <label asp-for="IsPublished" class="form-check-label"></label>
+    </div>
+    <div class="mb-3">
+        <label asp-for="ImageFile" class="form-label"></label>
+        <input asp-for="ImageFile" class="form-control" type="file" />
+    </div>
+    @if (!string.IsNullOrEmpty(Model.ExistingImageUrl))
+    {
+        <div class="mb-3">
+            <img src="@Model.ExistingImageUrl" class="img-thumbnail" alt="News image" style="max-width:200px;" />
+        </div>
+    }
+    <button type="submit" class="btn btn-success">Save</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
+
+@section Scripts {
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: '#newsContent',
+            height: 350,
+            menubar: false,
+            plugins: 'link image lists table code',
+            toolbar: 'undo redo | bold italic underline | alignleft aligncenter alignright | bullist numlist | link image | code'
+        });
+    </script>
+    <partial name="_ValidationScriptsPartial" />
+}

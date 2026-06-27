@@ -1,0 +1,27 @@
+@model IEnumerable<BCUWebsite.Models.ContentBlock>
+
+@{
+    ViewData["Title"] = "Manage Content Blocks";
+}
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Key</th>
+            <th>Content</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var block in Model)
+        {
+            <tr>
+                <td>@block.Key</td>
+                <td>@block.Content</td>
+                <td>
+                    <a class="btn btn-sm btn-secondary" asp-action="Edit" asp-route-id="@block.Id">Edit</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

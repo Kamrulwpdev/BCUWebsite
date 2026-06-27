@@ -1,0 +1,18 @@
+@model BCUWebsite.Models.Course
+
+@{
+    ViewData["Title"] = "Course Details";
+}
+
+<div class="mb-3">
+    <h4>@Model.Title</h4>
+    <p><strong>Category:</strong> @Model.Category</p>
+    <p><strong>Description:</strong> @Model.Description</p>
+    <p><strong>Featured:</strong> @(Model.IsFeatured ? "Yes" : "No")</p>
+    @if (!string.IsNullOrEmpty(Model.ImageUrl))
+    {
+        <img src="@Model.ImageUrl" class="img-fluid" alt="Course image" style="max-width:400px;" />
+    }
+</div>
+
+<a asp-action="Index" class="btn btn-secondary">Back</a>
