@@ -15,6 +15,7 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     public DbSet<Course> Courses { get; set; } = null!;
     public DbSet<NewsArticle> NewsArticles { get; set; } = null!;
     public DbSet<ContentBlock> ContentBlocks { get; set; } = null!;
+    public DbSet<CourseLookup> CourseLookups { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

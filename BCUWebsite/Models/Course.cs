@@ -20,6 +20,15 @@ public class Course
     [Display(Name = "Category")]
     public string? Category { get; set; }
 
+    [Display(Name = "Level")]
+    public string? Level { get; set; }
+
+    [Display(Name = "Mode")]
+    public string? Mode { get; set; }
+
+    [Display(Name = "Subject Area")]
+    public string? SubjectArea { get; set; }
+
     [Display(Name = "Link")]
     public string? Link { get; set; }
 

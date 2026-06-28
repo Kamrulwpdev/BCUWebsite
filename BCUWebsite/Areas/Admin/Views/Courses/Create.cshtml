@@ -1,4 +1,4 @@
-@model Course
+@model BCUWebsite.Models.ViewModels.CourseViewModel
 
 @{
     ViewData["Title"] = "Create Course";
@@ -28,6 +28,13 @@
                         <span asp-validation-for="Category" class="text-danger"></span>
                     </div>
                 </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label asp-for="Level" class="form-label"></label>
+                        <input asp-for="Level" class="form-control" />
+                        <span asp-validation-for="Level" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
 
             <div class="mb-3">
@@ -49,6 +56,23 @@
                         <label asp-for="Link" class="form-label"></label>
                         <input asp-for="Link" class="form-control" placeholder="https://..." />
                         <span asp-validation-for="Link" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label asp-for="Mode" class="form-label"></label>
+                        <input asp-for="Mode" class="form-control" />
+                        <span asp-validation-for="Mode" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label asp-for="SubjectArea" class="form-label"></label>
+                        <input asp-for="SubjectArea" class="form-control" />
+                        <span asp-validation-for="SubjectArea" class="text-danger"></span>
                     </div>
                 </div>
             </div>

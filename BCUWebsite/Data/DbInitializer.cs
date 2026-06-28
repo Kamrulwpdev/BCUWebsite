@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using BCUWebsite.Models;
 
 namespace BCUWebsite.Data;
@@ -12,8 +11,6 @@ public static class DbInitializer
         var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
         var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
         var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-
-        await context.Database.EnsureCreatedAsync();
 
         if (!await roleManager.RoleExistsAsync("Admin"))
         {
@@ -35,11 +32,109 @@ public static class DbInitializer
             await userManager.AddToRoleAsync(adminUser, "Admin");
         }
 
+        if (!context.CourseLookups.Any())
+        {
+            context.CourseLookups.AddRange(
+                new CourseLookup { LookupType = "Level", Value = "Undergraduate", SortOrder = 1 },
+                new CourseLookup { LookupType = "Level", Value = "Postgraduate", SortOrder = 2 },
+                new CourseLookup { LookupType = "Mode", Value = "Full-time", SortOrder = 1 },
+                new CourseLookup { LookupType = "Mode", Value = "Part-time", SortOrder = 2 },
+                new CourseLookup { LookupType = "Mode", Value = "Sandwich", SortOrder = 3 },
+                new CourseLookup { LookupType = "SubjectArea", Value = "Business and Management", SortOrder = 1 },
+                new CourseLookup { LookupType = "SubjectArea", Value = "Computing and Digital Technologies", SortOrder = 2 },
+                new CourseLookup { LookupType = "SubjectArea", Value = "Engineering and Technology", SortOrder = 3 },
+                new CourseLookup { LookupType = "SubjectArea", Value = "Creative and Digital Industries", SortOrder = 4 },
+                new CourseLookup { LookupType = "SubjectArea", Value = "Health and Social Care", SortOrder = 5 }
+            );
+        }
+
         if (!context.Courses.Any())
         {
             context.Courses.AddRange(
-                new Course { Title = "ASP.NET Core Bootcamp", Description = "Build modern web apps with ASP.NET Core.", Category = "Web Development", ImageUrl = "/images/sample-course-1.jpg", Link = "https://example.com/course/aspnet-core", IsPromoted = true, DisplayOrder = 1 },
-                new Course { Title = "C# Fundamentals", Description = "Learn C# from the ground up.", Category = "Programming", ImageUrl = "/images/sample-course-2.jpg", Link = "https://example.com/course/csharp", DisplayOrder = 2 }
+                new Course
+                {
+                    Title = "Accounting and Finance BSc (Hons)",
+                    Description = "Develop professional accounting, auditing and financial planning skills through live briefs, industry software and real-world business projects.",
+                    Category = "Business",
+                    Level = "Undergraduate",
+                    Mode = "Full-time",
+                    SubjectArea = "Business and Management",
+                    ImageUrl = "/images/course-accounting-finance.jpg",
+                    Link = "https://www.bcu.ac.uk/courses/accounting-and-finance-bsc-hons-2026-27",
+                    IsPromoted = true,
+                    DisplayOrder = 1,
+                    CreatedAt = DateTime.UtcNow.AddDays(-21)
+                },
+                new Course
+                {
+                    Title = "Computer Science BSc (Hons)",
+                    Description = "Learn software engineering, AI and data systems with industry-standard facilities and project work that prepares you for graduate roles.",
+                    Category = "Computing",
+                    Level = "Undergraduate",
+                    Mode = "Full-time",
+                    SubjectArea = "Computing and Digital Technologies",
+                    ImageUrl = "/images/course-computer-science.jpg",
+                    Link = "https://www.bcu.ac.uk/courses/computer-science-bsc-hons-2026-27",
+                    IsPromoted = true,
+                    DisplayOrder = 2,
+                    CreatedAt = DateTime.UtcNow.AddDays(-18)
+                },
+                new Course
+                {
+                    Title = "Cyber Security BSc (Hons)",
+                    Description = "Build cyber defence expertise with hands-on labs, ethical hacking techniques and security management skills.",
+                    Category = "Computing",
+                    Level = "Undergraduate",
+                    Mode = "Sandwich",
+                    SubjectArea = "Computing and Digital Technologies",
+                    ImageUrl = "/images/course-cyber-security.jpg",
+                    Link = "https://www.bcu.ac.uk/courses/cyber-security-bsc-hons-2026-27",
+                    IsPromoted = false,
+                    DisplayOrder = 3,
+                    CreatedAt = DateTime.UtcNow.AddDays(-15)
+                },
+                new Course
+                {
+                    Title = "Architecture BA (Hons)",
+                    Description = "Study creative design, urban planning and digital modelling to shape sustainable cities and the built environment.",
+                    Category = "Architecture",
+                    Level = "Undergraduate",
+                    Mode = "Full-time",
+                    SubjectArea = "Engineering and Technology",
+                    ImageUrl = "/images/course-architecture.jpg",
+                    Link = "https://www.bcu.ac.uk/courses/architecture-ba-hons-2026-27",
+                    IsPromoted = false,
+                    DisplayOrder = 4,
+                    CreatedAt = DateTime.UtcNow.AddDays(-12)
+                },
+                new Course
+                {
+                    Title = "Creative Writing BA (Hons)",
+                    Description = "Develop your voice through fiction, scriptwriting and digital storytelling with industry mentors and live publishing opportunities.",
+                    Category = "Creative",
+                    Level = "Undergraduate",
+                    Mode = "Part-time",
+                    SubjectArea = "Creative and Digital Industries",
+                    ImageUrl = "/images/course-creative-writing.jpg",
+                    Link = "https://www.bcu.ac.uk/courses/creative-writing-ba-hons-2026-27",
+                    IsPromoted = false,
+                    DisplayOrder = 5,
+                    CreatedAt = DateTime.UtcNow.AddDays(-9)
+                },
+                new Course
+                {
+                    Title = "Public Health MSc",
+                    Description = "Advance your career in health policy, population research and community wellbeing with a strong emphasis on applied practice.",
+                    Category = "Health",
+                    Level = "Postgraduate",
+                    Mode = "Part-time",
+                    SubjectArea = "Health and Social Care",
+                    ImageUrl = "/images/course-public-health.jpg",
+                    Link = "https://www.bcu.ac.uk/courses/public-health-msc-2026-27",
+                    IsPromoted = false,
+                    DisplayOrder = 6,
+                    CreatedAt = DateTime.UtcNow.AddDays(-6)
+                }
             );
         }
 

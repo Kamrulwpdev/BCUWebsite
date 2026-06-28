@@ -1,0 +1,71 @@
+@model BCUWebsite.Models.Course
+
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<section class="course-hero" style="background-image: url('@(Model.ImageUrl ?? "/images/course-hero.jpg")')">
+    <div class="overlay">
+        <div class="container">
+            <div class="row align-items-end">
+                <div class="col-md-8">
+                    <span class="badge bg-warning text-dark mb-3">@Model.Level</span>
+                    <h1 class="display-5 fw-bold text-white">@Model.Title</h1>
+                    <p class="lead text-white mb-0">@Model.Category • @Model.SubjectArea • @Model.Mode</p>
+                </div>
+                <div class="col-md-4 text-md-end mt-4 mt-md-0">
+                    @if (!string.IsNullOrEmpty(Model.Link))
+                    {
+                        <a class="btn btn-light btn-lg" href="@Model.Link">Find your course</a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container mt-5">
+    <div class="row gy-4">
+        <div class="col-lg-8">
+            <div class="course-detail-card mb-4">
+                <h3>Course overview</h3>
+                <p class="mb-0">@Model.Description</p>
+            </div>
+
+            <div class="course-detail-card mb-4">
+                <h4>What you'll study</h4>
+                <ul>
+                    <li>Applied modules designed with employers and industry partners.</li>
+                    <li>Professional software, live briefs and team-based project work.</li>
+                    <li>Real-world learning in our specialist campus facilities.</li>
+                </ul>
+            </div>
+
+            <div class="course-detail-card mb-4">
+                <h4>Entry requirements</h4>
+                <p>Typical entry requirements vary by course. Students usually require relevant GCSEs and qualifications aligned to the chosen pathway.</p>
+                <p>International students should check English language and visa guidance on the official website.</p>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="course-detail-card mb-4">
+                <h5>Quick facts</h5>
+                <dl class="row mb-0">
+                    <dt class="col-5">Level</dt>
+                    <dd class="col-7">@Model.Level</dd>
+                    <dt class="col-5">Mode</dt>
+                    <dd class="col-7">@Model.Mode</dd>
+                    <dt class="col-5">Subject</dt>
+                    <dd class="col-7">@Model.SubjectArea</dd>
+                    <dt class="col-5">Created</dt>
+                    <dd class="col-7">@Model.CreatedAt.ToString("dd MMM yyyy")</dd>
+                </dl>
+            </div>
+
+            <div class="course-detail-card mb-4">
+                <h5>Why choose this course?</h5>
+                <p class="mb-0">This course combines academic excellence with career-ready practice and strong links to employers across the region.</p>
+            </div>
+        </div>
+    </div>
+</section>

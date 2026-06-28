@@ -50,6 +50,9 @@ public class CoursesController : Controller
             Title = model.Title,
             Description = model.Description,
             Category = model.Category,
+            Level = model.Level,
+            Mode = model.Mode,
+            SubjectArea = model.SubjectArea,
             Link = model.Link,
             IsPromoted = model.IsPromoted,
             DisplayOrder = model.DisplayOrder,
@@ -83,6 +86,9 @@ public class CoursesController : Controller
             Title = course.Title,
             Description = course.Description,
             Category = course.Category,
+            Level = course.Level,
+            Mode = course.Mode,
+            SubjectArea = course.SubjectArea,
             Link = course.Link,
             IsPromoted = course.IsPromoted,
             DisplayOrder = course.DisplayOrder,
@@ -107,6 +113,9 @@ public class CoursesController : Controller
         course.Title = model.Title;
         course.Description = model.Description;
         course.Category = model.Category;
+        course.Level = model.Level;
+        course.Mode = model.Mode;
+        course.SubjectArea = model.SubjectArea;
         course.Link = model.Link;
         course.IsPromoted = model.IsPromoted;
         course.DisplayOrder = model.DisplayOrder;

@@ -53,81 +53,47 @@ app.MapControllerRoute(
 
 app.MapRazorPages();
 
-// Seed the database
+// Ensure database schema is up to date and seed data
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-
-    dbContext.Database.OpenConnection();
-    using var command = dbContext.Database.GetDbConnection().CreateCommand();
-    command.CommandText = "SELECT name FROM sqlite_master WHERE type='table' AND name='AspNetUsers';";
-    var hasAspNetUsers = command.ExecuteScalar() != null;
-    dbContext.Database.CloseConnection();
-
-    if (!hasAspNetUsers)
-    {
-        dbContext.Database.EnsureDeleted();
-    }
-
     dbContext.Database.EnsureCreated();
-    
-    // Seed data if empty
-    if (!dbContext.ContentBlocks.Any())
+
+    using var connection = dbContext.Database.GetDbConnection();
+    connection.Open();
+    using var command = connection.CreateCommand();
+
+    command.CommandText = @"CREATE TABLE IF NOT EXISTS CourseLookups (
+        Id INTEGER PRIMARY KEY AUTOINCREMENT,
+        LookupType TEXT NOT NULL,
+        Value TEXT NOT NULL,
+        SortOrder INTEGER NOT NULL
+    );";
+    command.ExecuteNonQuery();
+
+    command.CommandText = "PRAGMA table_info('Courses');";
+    using var reader = command.ExecuteReader();
+    var existingColumns = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+    while (reader.Read())
     {
-        dbContext.ContentBlocks.AddRange(
-            new ContentBlock { 
-                Key = "HeroStat1", 
-                Title = "No. 1", 
-                Content = "in the West Midlands for work experience (RateMyPlacement Awards, 2025)", 
-                Category = "HeroStats" 
-            },
-            new ContentBlock { 
-                Key = "HeroStat2", 
-                Title = "Gold", 
-                Content = "for student experience, overall rating silver (TEF, 2023)", 
-                Category = "HeroStats" 
-            },
-            new ContentBlock { 
-                Key = "HeroStat3", 
-                Title = "£500m", 
-                Content = "invested in industry-standard facilities", 
-                Category = "HeroStats" 
-            },
-            new ContentBlock { 
-                Key = "HeroStat4", 
-                Title = "7th", 
-                Content = "in England for social mobility (HEPI, 2025)", 
-                Category = "HeroStats" 
-            }
-        );
-        
-        dbContext.Courses.AddRange(
-            new Course { 
-                Title = "Computer Science BSc", 
-                Description = "Learn to develop cutting-edge software and systems.", 
-                Category = "Undergraduate", 
-                IsPromoted = true, 
-                DisplayOrder = 1 
-            },
-            new Course { 
-                Title = "Business Management BA", 
-                Description = "Develop strategic leadership and management skills.", 
-                Category = "Undergraduate", 
-                IsPromoted = true, 
-                DisplayOrder = 2 
-            }
-        );
-        
-        dbContext.NewsArticles.AddRange(
-            new NewsArticle { 
-                Title = "Sir Lenny Henry urges media industry to stand together against racism", 
-                Content = "Sir Lenny Henry has called on the UK media industry to confront racism, sexism, ableism and inequality head-on.", 
-                IsPublished = true, 
-                IsFeatured = true 
-            }
-        );
-        
-        dbContext.SaveChanges();
+        existingColumns.Add(reader.GetString(reader.GetOrdinal("name")));
+    }
+    reader.Close();
+
+    if (!existingColumns.Contains("Level"))
+    {
+        command.CommandText = "ALTER TABLE Courses ADD COLUMN Level TEXT;";
+        command.ExecuteNonQuery();
+    }
+    if (!existingColumns.Contains("Mode"))
+    {
+        command.CommandText = "ALTER TABLE Courses ADD COLUMN Mode TEXT;";
+        command.ExecuteNonQuery();
+    }
+    if (!existingColumns.Contains("SubjectArea"))
+    {
+        command.CommandText = "ALTER TABLE Courses ADD COLUMN SubjectArea TEXT;";
+        command.ExecuteNonQuery();
     }
 }
 

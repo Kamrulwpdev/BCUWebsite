@@ -204,7 +204,6 @@
 /workspaces/BCUWebsite/BCUWebsite/obj/Debug/net10.0/compressed/nezrqnk58p-{0}-muycvpuwrr-muycvpuwrr.gz
 /workspaces/BCUWebsite/BCUWebsite/obj/Debug/net10.0/compressed/v0zgfp0y55-{0}-87fc7y1x7t-87fc7y1x7t.gz
 /workspaces/BCUWebsite/BCUWebsite/obj/Debug/net10.0/compressed/yfc7ypekbg-{0}-mlv21k5csn-mlv21k5csn.gz
-/workspaces/BCUWebsite/BCUWebsite/obj/Debug/net10.0/compressed/lrj57cigy5-{0}-b9sayid5wm-b9sayid5wm.gz
 /workspaces/BCUWebsite/BCUWebsite/obj/Debug/net10.0/compressed/0q46gyex1o-{0}-61n19gt1b8-61n19gt1b8.gz
 /workspaces/BCUWebsite/BCUWebsite/obj/Debug/net10.0/compressed/gn1oq646gv-{0}-xtxxf3hu2r-xtxxf3hu2r.gz
 /workspaces/BCUWebsite/BCUWebsite/obj/Debug/net10.0/compressed/3zuc7gsnpv-{0}-bqjiyaj88i-bqjiyaj88i.gz
@@ -279,3 +278,4 @@
 /workspaces/BCUWebsite/BCUWebsite/obj/Debug/net10.0/BCUWebsite.pdb
 /workspaces/BCUWebsite/BCUWebsite/obj/Debug/net10.0/BCUWebsite.genruntimeconfig.cache
 /workspaces/BCUWebsite/BCUWebsite/obj/Debug/net10.0/ref/BCUWebsite.dll
+/workspaces/BCUWebsite/BCUWebsite/obj/Debug/net10.0/compressed/lrj57cigy5-{0}-0tbipvstxf-0tbipvstxf.gz

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BCUWebsite")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9a0aa375c4cbedc34f37d8d67ca1f3ecf0da79a1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+77d7f5a677e429cbce5ed308176aadbf46680bdf")]
 [assembly: System.Reflection.AssemblyProductAttribute("BCUWebsite")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BCUWebsite")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

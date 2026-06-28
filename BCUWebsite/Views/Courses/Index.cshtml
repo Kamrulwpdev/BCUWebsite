@@ -1,0 +1,110 @@
+@model BCUWebsite.Models.ViewModels.CoursesIndexViewModel
+
+@{
+    ViewData["Title"] = "Find your course";
+}
+
+<div class="container mt-5">
+    <div class="row align-items-end mb-4">
+        <div class="col-md-8">
+            <h2 class="fw-bold">Find your course</h2>
+            <p class="text-muted mb-0">@Model.TotalCount courses available</p>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-12">
+            <form method="get" class="courses-search row g-3 align-items-end">
+                <div class="col-lg-4">
+                    <label class="form-label visually-hidden" for="q">Search</label>
+                    <input id="q" type="text" name="q" value="@Model.Query" class="form-control" placeholder="Search courses, keywords or subject areas" />
+                </div>
+                <div class="col-lg-2">
+                    <label class="form-label visually-hidden" for="level">Level</label>
+                    <select id="level" name="level" class="form-select">
+                        <option value="">Level of study</option>
+                        @foreach (var l in Model.Levels)
+                        {
+                            <option value="@l" selected="@(Model.Level == l ? "selected" : null)">@l</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-lg-3">
+                    <label class="form-label visually-hidden" for="subjectArea">Subject area</label>
+                    <select id="subjectArea" name="subjectArea" class="form-select">
+                        <option value="">Subject area</option>
+                        @foreach (var s in Model.SubjectAreas)
+                        {
+                            <option value="@s" selected="@(Model.SubjectArea == s ? "selected" : null)">@s</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-lg-2">
+                    <label class="form-label visually-hidden" for="mode">Mode</label>
+                    <select id="mode" name="mode" class="form-select">
+                        <option value="">Mode of attendance</option>
+                        @foreach (var m in Model.Modes)
+                        {
+                            <option value="@m" selected="@(Model.Mode == m ? "selected" : null)">@m</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-lg-1 text-lg-end">
+                    <button type="submit" class="btn btn-primary w-100">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            @if (!Model.Courses.Any())
+            {
+                <div class="alert alert-warning">No courses match your search. Try broadening your filters.</div>
+            }
+            else
+            {
+                <div class="courses-list">
+                    @foreach (var course in Model.Courses)
+                    {
+                        <div class="course-item">
+                            <h5><a asp-controller="Courses" asp-action="Details" asp-route-id="@course.Id">@course.Title</a></h5>
+                            <p class="mb-1 text-muted">@course.Category • @course.Level • @course.Mode</p>
+                            <p>@(course.Description.Length > 220 ? course.Description.Substring(0, 220) + "..." : course.Description)</p>
+                        </div>
+                    }
+                </div>
+            }
+
+            @if (Model.TotalPages > 1)
+            {
+                <div class="courses-pagination mt-4">
+                    <div>
+                        @if (Model.Page > 1)
+                        {
+                            <a class="btn btn-outline-secondary" asp-action="Index" asp-route-page="@(Model.Page - 1)" asp-route-q="@Model.Query" asp-route-level="@Model.Level" asp-route-subjectArea="@Model.SubjectArea" asp-route-mode="@Model.Mode">&laquo; Previous</a>
+                        }
+                    </div>
+                    <div>
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination mb-0">
+                                @for (var p = 1; p <= Model.TotalPages; p++)
+                                {
+                                    <li class="page-item @(p == Model.Page ? "active" : "")">
+                                        <a class="page-link" asp-action="Index" asp-route-page="@p" asp-route-q="@Model.Query" asp-route-level="@Model.Level" asp-route-subjectArea="@Model.SubjectArea" asp-route-mode="@Model.Mode">@p</a>
+                                    </li>
+                                }
+                            </ul>
+                        </nav>
+                    </div>
+                    <div>
+                        @if (Model.Page < Model.TotalPages)
+                        {
+                            <a class="btn btn-primary" asp-action="Index" asp-route-page="@(Model.Page + 1)" asp-route-q="@Model.Query" asp-route-level="@Model.Level" asp-route-subjectArea="@Model.SubjectArea" asp-route-mode="@Model.Mode">Next &raquo;</a>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

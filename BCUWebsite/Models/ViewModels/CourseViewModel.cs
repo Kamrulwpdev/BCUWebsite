@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 
 namespace BCUWebsite.Models.ViewModels;
@@ -21,6 +22,15 @@ public class CourseViewModel
     [Display(Name = "Link")]
     public string? Link { get; set; }
 
+    [Display(Name = "Level")]
+    public string? Level { get; set; }
+
+    [Display(Name = "Mode")]
+    public string? Mode { get; set; }
+
+    [Display(Name = "Subject Area")]
+    public string? SubjectArea { get; set; }
+
     [Display(Name = "Is Promoted")]
     public bool IsPromoted { get; set; }
 
@@ -29,6 +39,7 @@ public class CourseViewModel
 
     public IFormFile? ImageFile { get; set; }
     public string? ExistingImageUrl { get; set; }
+    public string? ImageUrl { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime? UpdatedAt { get; set; }
 }
