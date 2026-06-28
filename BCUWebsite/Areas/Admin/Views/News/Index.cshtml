@@ -1,35 +1,46 @@
-@model IEnumerable<BCUWebsite.Models.NewsArticle>
+@model List<NewsArticle>
 
 @{
     ViewData["Title"] = "Manage News";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<div class="mb-3">
-    <a class="btn btn-primary" asp-action="Create">Create News</a>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>News Articles</h2>
+    <a href="@Url.Action("Create")" class="btn btn-primary">
+        <i class="fas fa-plus"></i> Add News
+    </a>
 </div>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Title</th>
-            <th>Published</th>
-            <th>Date</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var article in Model)
-        {
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead>
             <tr>
-                <td>@article.Title</td>
-                <td>@(article.IsPublished ? "Yes" : "No")</td>
-                <td>@article.PublishedDate.ToString("yyyy-MM-dd")</td>
-                <td>
-                    <a class="btn btn-sm btn-secondary" asp-action="Edit" asp-route-id="@article.Id">Edit</a>
-                    <a class="btn btn-sm btn-info" asp-action="Details" asp-route-id="@article.Id">Details</a>
-                    <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@article.Id">Delete</a>
-                </td>
+                <th>Title</th>
+                <th>Published Date</th>
+                <th>Published</th>
+                <th>Featured</th>
+                <th>Actions</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var news in Model)
+            {
+                <tr>
+                    <td>@news.Title</td>
+                    <td>@news.PublishedDate.ToString("dd MMM yyyy")</td>
+                    <td>@(news.IsPublished ? "Yes" : "No")</td>
+                    <td>@(news.IsFeatured ? "Yes" : "No")</td>
+                    <td>
+                        <a href="@Url.Action("Edit", new { id = news.Id })" class="btn btn-sm btn-warning">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a href="@Url.Action("Delete", new { id = news.Id })" class="btn btn-sm btn-danger">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

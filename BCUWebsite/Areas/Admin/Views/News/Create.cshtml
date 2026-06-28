@@ -1,46 +1,62 @@
-@model BCUWebsite.Models.ViewModels.NewsArticleViewModel
+@model NewsArticle
 
 @{
-    ViewData["Title"] = "Create News";
+    ViewData["Title"] = "Create News Article";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<form asp-action="Create" enctype="multipart/form-data">
-    <div class="mb-3">
-        <label asp-for="Title" class="form-label"></label>
-        <input asp-for="Title" class="form-control" />
-        <span asp-validation-for="Title" class="text-danger"></span>
+<div class="card">
+    <div class="card-header">
+        <h5>Create News Article</h5>
     </div>
-    <div class="mb-3">
-        <label asp-for="Content" class="form-label"></label>
-        <textarea asp-for="Content" class="form-control" id="newsContent" rows="6"></textarea>
-        <span asp-validation-for="Content" class="text-danger"></span>
+    <div class="card-body">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+            <div class="mb-3">
+                <label asp-for="Title" class="form-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Content" class="form-label"></label>
+                <textarea asp-for="Content" class="form-control" rows="5"></textarea>
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label asp-for="ImageUrl" class="form-label"></label>
+                        <input asp-for="ImageUrl" class="form-control" placeholder="/images/news.jpg" />
+                        <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" asp-for="IsPublished" />
+                            <label class="form-check-label" asp-for="IsPublished"></label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" asp-for="IsFeatured" />
+                            <label class="form-check-label" asp-for="IsFeatured"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-3">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Create
+                </button>
+                <a href="@Url.Action("Index")" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
     </div>
-    <div class="mb-3">
-        <label asp-for="PublishedDate" class="form-label"></label>
-        <input asp-for="PublishedDate" class="form-control" type="datetime-local" value="@Model.PublishedDate.ToString("yyyy-MM-ddTHH:mm")" />
-    </div>
-    <div class="mb-3 form-check">
-        <input asp-for="IsPublished" class="form-check-input" />
-        <label asp-for="IsPublished" class="form-check-label"></label>
-    </div>
-    <div class="mb-3">
-        <label asp-for="ImageFile" class="form-label"></label>
-        <input asp-for="ImageFile" class="form-control" type="file" />
-    </div>
-    <button type="submit" class="btn btn-primary">Create</button>
-    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
-</form>
+</div>
 
 @section Scripts {
-    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-    <script>
-        tinymce.init({
-            selector: '#newsContent',
-            height: 350,
-            menubar: false,
-            plugins: 'link image lists table code',
-            toolbar: 'undo redo | bold italic underline | alignleft aligncenter alignright | bullist numlist | link image | code'
-        });
-    </script>
-    <partial name="_ValidationScriptsPartial" />
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

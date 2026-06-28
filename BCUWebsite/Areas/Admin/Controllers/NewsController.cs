@@ -47,7 +47,8 @@ public class NewsController : Controller
             Title = model.Title,
             Content = model.Content,
             PublishedDate = model.PublishedDate,
-            IsPublished = model.IsPublished
+            IsPublished = model.IsPublished,
+            IsFeatured = model.IsFeatured
         };
 
         if (model.ImageFile != null)
@@ -78,6 +79,7 @@ public class NewsController : Controller
             Content = article.Content,
             PublishedDate = article.PublishedDate,
             IsPublished = article.IsPublished,
+            IsFeatured = article.IsFeatured,
             ExistingImageUrl = article.ImageUrl
         };
 
@@ -98,6 +100,7 @@ public class NewsController : Controller
         article.Content = model.Content;
         article.PublishedDate = model.PublishedDate;
         article.IsPublished = model.IsPublished;
+        article.IsFeatured = model.IsFeatured;
 
         if (model.ImageFile != null)
         {

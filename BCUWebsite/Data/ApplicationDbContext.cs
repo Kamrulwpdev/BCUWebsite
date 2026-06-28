@@ -1,5 +1,5 @@
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using BCUWebsite.Models;
 
@@ -12,7 +12,14 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     {
     }
 
-    public DbSet<Course> Courses => Set<Course>();
-    public DbSet<NewsArticle> NewsArticles => Set<NewsArticle>();
-    public DbSet<ContentBlock> ContentBlocks => Set<ContentBlock>();
+    public DbSet<Course> Courses { get; set; } = null!;
+    public DbSet<NewsArticle> NewsArticles { get; set; } = null!;
+    public DbSet<ContentBlock> ContentBlocks { get; set; } = null!;
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        // Seed data is handled in Program.cs for SQLite compatibility.
+    }
 }

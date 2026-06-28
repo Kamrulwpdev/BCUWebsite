@@ -1,8 +1,243 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+@model HomeViewModel
+
+@{
+    ViewData["Title"] = "Home - Birmingham City University";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<section class="hero-section py-5 bg-primary text-white">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <span class="eyebrow text-uppercase letter-spacing mb-3 d-inline-block">Birmingham City University</span>
+                <h1 class="display-4 fw-bold mb-3">Discover your future at BCU</h1>
+                <p class="lead mb-4">Join a vibrant, diverse community where practical learning, research excellence and career-focused support help you succeed.</p>
+                <a href="#courses" class="btn btn-light btn-lg me-2">Explore courses</a>
+                <a href="#news" class="btn btn-outline-light btn-lg">Latest news</a>
+            </div>
+            <div class="col-lg-6 text-center">
+                <img src="~/images/hero-campus.jpg" alt="BCU Campus" class="img-fluid rounded-4 shadow-lg" />
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="stats-section py-5">
+    <div class="container">
+        <div class="row g-4">
+            @foreach (var stat in Model.HeroStats)
+            {
+                <div class="col-md-3">
+                    <div class="stat-card p-4 rounded-4 shadow-sm h-100 text-center bg-white">
+                        <h2 class="display-5 fw-bold text-primary mb-2">@stat.Title</h2>
+                        <p class="mb-0">@stat.Content</p>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<section id="courses" class="course-search-section py-5 bg-light">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <h2 class="fw-bold mb-3">Find your course</h2>
+                <p class="lead">Whether you want to pursue a passion, develop skills for the next stage of your career, or study in the heart of Birmingham, we have courses designed for success.</p>
+                <a href="#courses" class="btn btn-primary btn-lg">Browse all courses</a>
+            </div>
+            <div class="col-lg-6">
+                <div class="search-card p-4 rounded-4 shadow-sm bg-white">
+                    <h4 class="fw-bold mb-3">Search courses</h4>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search by subject, keyword or level" aria-label="Search courses">
+                        <button class="btn btn-primary" type="button">Search</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@if (Model.PromotedCourses.Any())
+{
+    <section class="featured-courses py-5">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h2 class="fw-bold">Featured courses</h2>
+                    <p class="mb-0 text-muted">Discover programmes our students love.</p>
+                </div>
+                <a href="#courses" class="text-decoration-none">View all courses →</a>
+            </div>
+            <div class="row g-4">
+                @foreach (var course in Model.PromotedCourses)
+                {
+                    <div class="col-md-4">
+                        <div class="card h-100 shadow-sm rounded-4 overflow-hidden">
+                            @if (!string.IsNullOrEmpty(course.ImageUrl))
+                            {
+                                <img src="@course.ImageUrl" class="card-img-top" alt="@course.Title" />
+                            }
+                            <div class="card-body">
+                                <span class="badge bg-primary mb-3">@course.Category</span>
+                                <h5 class="card-title">@course.Title</h5>
+                                <p class="card-text text-muted">@course.Description</p>
+                                @if (!string.IsNullOrEmpty(course.Link))
+                                {
+                                    <a href="@course.Link" class="btn btn-outline-primary">Learn more</a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+}
+
+<section class="highlight-section py-5 bg-primary text-white">
+    <div class="container">
+        <div class="row g-4 text-center">
+            <div class="col-md-6">
+                <div class="p-4 rounded-4 bg-white bg-opacity-10">
+                    <h3 class="fw-bold">Early Clearing 2026</h3>
+                    <p>Apply from 2 July once you have your results and get a decision fast.</p>
+                    <a href="#" class="btn btn-light">Find out more</a>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="p-4 rounded-4 bg-white bg-opacity-10">
+                    <h3 class="fw-bold">Fast track decision</h3>
+                    <p>Receive an admissions decision within 2 working days for eligible applicants.</p>
+                    <a href="#" class="btn btn-light">Apply now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="feature-section py-5">
+    <div class="container">
+        <div class="row align-items-center gy-4">
+            <div class="col-lg-6 order-lg-2">
+                <h2 class="fw-bold">Powering Birmingham</h2>
+                <p class="lead">From innovation to community, BCU is helping shape the future of Birmingham and the West Midlands.</p>
+                <a href="#" class="btn btn-primary">Discover more</a>
+            </div>
+            <div class="col-lg-6 order-lg-1 text-center">
+                <img src="~/images/birmingham.jpg" alt="Birmingham city" class="img-fluid rounded-4 shadow-lg" />
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="apply-section py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-4">
+            <h2 class="fw-bold">Applying to BCU</h2>
+            <p class="text-muted">Support, finance and student life resources to help you prepare for the next step.</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-3">
+                <div class="p-4 rounded-4 shadow-sm bg-white text-center h-100">
+                    <i class="fas fa-graduation-cap fa-3x text-primary mb-3"></i>
+                    <h5>Scholarships</h5>
+                    <p class="text-muted small mb-0">Find financial support available for students.</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="p-4 rounded-4 shadow-sm bg-white text-center h-100">
+                    <i class="fas fa-calendar-alt fa-3x text-primary mb-3"></i>
+                    <h5>Apply now</h5>
+                    <p class="text-muted small mb-0">Open applications until 30 June 2026.</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="p-4 rounded-4 shadow-sm bg-white text-center h-100">
+                    <i class="fas fa-video fa-3x text-primary mb-3"></i>
+                    <h5>Virtual tour</h5>
+                    <p class="text-muted small mb-0">Explore our campuses from wherever you are.</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="p-4 rounded-4 shadow-sm bg-white text-center h-100">
+                    <i class="fas fa-pencil-alt fa-3x text-primary mb-3"></i>
+                    <h5>Revision help</h5>
+                    <p class="text-muted small mb-0">Access top tips to support your exams.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="news" class="news-section py-5">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h2 class="fw-bold">University news</h2>
+                <p class="text-muted mb-0">Stay up to date with the latest stories from BCU.</p>
+            </div>
+            <a href="#" class="text-decoration-none">View all news →</a>
+        </div>
+        <div class="row g-4">
+            @foreach (var news in Model.LatestNews)
+            {
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm rounded-4 overflow-hidden">
+                        @if (!string.IsNullOrEmpty(news.ImageUrl))
+                        {
+                            <img src="@news.ImageUrl" class="card-img-top" alt="@news.Title" />
+                        }
+                        <div class="card-body">
+                            <small class="text-muted">@news.PublishedDate.ToString("dd MMMM yyyy")</small>
+                            <h5 class="card-title mt-2">@news.Title</h5>
+                            <p class="card-text text-muted">@news.Content</p>
+                            <a href="#" class="btn btn-sm btn-outline-primary">Read more</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<section class="life-section py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-4">
+            <h2 class="fw-bold">Life at BCU</h2>
+            <p class="text-muted">Experience the support, community and opportunities available to every student.</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="p-4 rounded-4 shadow-sm bg-white text-center h-100">
+                    <i class="fas fa-home fa-3x text-primary mb-3"></i>
+                    <h5>Accommodation</h5>
+                    <p class="text-muted small mb-0">Comfortable halls and city living close to campus.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-4 rounded-4 shadow-sm bg-white text-center h-100">
+                    <i class="fas fa-users fa-3x text-primary mb-3"></i>
+                    <h5>Student life</h5>
+                    <p class="text-muted small mb-0">A vibrant community with activities, clubs and support.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-4 rounded-4 shadow-sm bg-white text-center h-100">
+                    <i class="fas fa-hand-holding-heart fa-3x text-primary mb-3"></i>
+                    <h5>Student support</h5>
+                    <p class="text-muted small mb-0">Advice for wellbeing, learning and future careers.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="boost-section py-5 bg-primary text-white">
+    <div class="container text-center">
+        <h2 class="display-6 fw-bold mb-3">BCU Boost</h2>
+        <p class="lead mb-4">A dedicated support package to help manage costs, build confidence and feel ready for university life.</p>
+        <a href="#" class="btn btn-light btn-lg">Learn more</a>
+appsettings.json
+    </div>
+</section>

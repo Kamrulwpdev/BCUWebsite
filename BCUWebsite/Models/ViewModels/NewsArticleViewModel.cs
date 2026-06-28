@@ -15,6 +15,7 @@ public class NewsArticleViewModel
 
     public DateTime PublishedDate { get; set; } = DateTime.UtcNow;
     public bool IsPublished { get; set; }
+    public bool IsFeatured { get; set; }
     public IFormFile? ImageFile { get; set; }
     public string? ExistingImageUrl { get; set; }
 }

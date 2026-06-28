@@ -51,7 +51,9 @@ public class CoursesController : Controller
             Description = model.Description,
             Category = model.Category,
             Link = model.Link,
-            IsFeatured = model.IsFeatured
+            IsPromoted = model.IsPromoted,
+            DisplayOrder = model.DisplayOrder,
+            CreatedAt = DateTime.UtcNow
         };
 
         if (model.ImageFile != null)
@@ -82,7 +84,10 @@ public class CoursesController : Controller
             Description = course.Description,
             Category = course.Category,
             Link = course.Link,
-            IsFeatured = course.IsFeatured,
+            IsPromoted = course.IsPromoted,
+            DisplayOrder = course.DisplayOrder,
+            CreatedAt = course.CreatedAt,
+            UpdatedAt = course.UpdatedAt,
             ExistingImageUrl = course.ImageUrl
         };
 
@@ -103,7 +108,9 @@ public class CoursesController : Controller
         course.Description = model.Description;
         course.Category = model.Category;
         course.Link = model.Link;
-        course.IsFeatured = model.IsFeatured;
+        course.IsPromoted = model.IsPromoted;
+        course.DisplayOrder = model.DisplayOrder;
+        course.UpdatedAt = DateTime.UtcNow;
 
         if (model.ImageFile != null)
         {

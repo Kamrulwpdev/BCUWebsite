@@ -2,6 +2,7 @@ using BCUWebsite.Data;
 using BCUWebsite.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BCUWebsite.Areas.Admin.Controllers;
 
@@ -16,13 +17,21 @@ public class HomeController : Controller
         _context = context;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
         var model = new AdminDashboardViewModel
         {
-            TotalCourses = _context.Courses.Count(),
-            TotalNewsArticles = _context.NewsArticles.Count(),
-            TotalContentBlocks = _context.ContentBlocks.Count()
+            TotalCourses = await _context.Courses.CountAsync(),
+            TotalNewsArticles = await _context.NewsArticles.CountAsync(),
+            TotalContentBlocks = await _context.ContentBlocks.CountAsync(),
+            RecentCourses = await _context.Courses
+                .OrderByDescending(c => c.CreatedAt)
+                .Take(5)
+                .ToListAsync(),
+            RecentNews = await _context.NewsArticles
+                .OrderByDescending(n => n.PublishedDate)
+                .Take(5)
+                .ToListAsync()
         };
 
         return View(model);

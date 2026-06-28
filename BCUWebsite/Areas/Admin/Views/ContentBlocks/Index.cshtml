@@ -1,27 +1,34 @@
-@model IEnumerable<BCUWebsite.Models.ContentBlock>
+@model List<ContentBlock>
 
 @{
     ViewData["Title"] = "Manage Content Blocks";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Key</th>
-            <th>Content</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var block in Model)
-        {
-            <tr>
-                <td>@block.Key</td>
-                <td>@block.Content</td>
-                <td>
-                    <a class="btn btn-sm btn-secondary" asp-action="Edit" asp-route-id="@block.Id">Edit</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Content Blocks</h2>
+</div>
+
+<div class="row">
+    @foreach (var block in Model)
+    {
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">
+                        <span class="badge bg-secondary me-2">@block.Category</span>
+                        @block.Key
+                    </h5>
+                    <a href="@Url.Action("Edit", new { id = block.Id })" class="btn btn-sm btn-warning">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                </div>
+                <div class="card-body">
+                    <h6>@block.Title</h6>
+                    <p class="text-muted small">@block.Content</p>
+                    <small class="text-muted">Updated: @block.UpdatedAt.ToString("dd MMM yyyy HH:mm")</small>
+                </div>
+            </div>
+        </div>
+    }
+</div>

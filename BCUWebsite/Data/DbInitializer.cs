@@ -38,8 +38,8 @@ public static class DbInitializer
         if (!context.Courses.Any())
         {
             context.Courses.AddRange(
-                new Course { Title = "ASP.NET Core Bootcamp", Description = "Build modern web apps with ASP.NET Core.", Category = "Web Development", ImageUrl = "/images/sample-course-1.jpg", Link = "https://example.com/course/aspnet-core", IsFeatured = true },
-                new Course { Title = "C# Fundamentals", Description = "Learn C# from the ground up.", Category = "Programming", ImageUrl = "/images/sample-course-2.jpg", Link = "https://example.com/course/csharp" }
+                new Course { Title = "ASP.NET Core Bootcamp", Description = "Build modern web apps with ASP.NET Core.", Category = "Web Development", ImageUrl = "/images/sample-course-1.jpg", Link = "https://example.com/course/aspnet-core", IsPromoted = true, DisplayOrder = 1 },
+                new Course { Title = "C# Fundamentals", Description = "Learn C# from the ground up.", Category = "Programming", ImageUrl = "/images/sample-course-2.jpg", Link = "https://example.com/course/csharp", DisplayOrder = 2 }
             );
         }
 
@@ -54,9 +54,9 @@ public static class DbInitializer
         if (!context.ContentBlocks.Any())
         {
             context.ContentBlocks.AddRange(
-                new ContentBlock { Key = "HeroStat1", Content = "100+ Courses" },
-                new ContentBlock { Key = "HeroStat2", Content = "Thousands of Students" },
-                new ContentBlock { Key = "HomepageWelcome", Content = "Welcome to the new BCU admin dashboard!" }
+                new ContentBlock { Key = "HeroStat1", Title = "Courses", Content = "100+ Courses", Category = "Hero" },
+                new ContentBlock { Key = "HeroStat2", Title = "Students", Content = "Thousands of Students", Category = "Hero" },
+                new ContentBlock { Key = "HomepageWelcome", Title = "Welcome", Content = "Welcome to the new BCU admin dashboard!", Category = "Home" }
             );
         }
 

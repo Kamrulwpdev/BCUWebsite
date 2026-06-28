@@ -1,8 +1,26 @@
-namespace BCUWebsite.Models;
+using System.ComponentModel.DataAnnotations;
 
-public class ContentBlock
+namespace BCUWebsite.Models
 {
-    public int Id { get; set; }
-    public string Key { get; set; } = string.Empty;
-    public string Content { get; set; } = string.Empty;
+    public class ContentBlock
+    {
+        public int Id { get; set; }
+
+        [Required]
+        [Display(Name = "Key")]
+        public string Key { get; set; } = string.Empty;
+
+        [Required]
+        [Display(Name = "Title")]
+        public string Title { get; set; } = string.Empty;
+
+        [Required]
+        [Display(Name = "Content")]
+        public string Content { get; set; } = string.Empty;
+
+        [Display(Name = "Category")]
+        public string? Category { get; set; }
+
+        public DateTime UpdatedAt { get; set; } = DateTime.Now;
+    }
 }
